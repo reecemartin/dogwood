@@ -41,3 +41,4 @@ All assignments and relevant documents will be listed in the Dogwood app for use
 Our initial proposal is to build the Dogwood application as a ReactJS Webpage with a NodeJS/ExpressJS Backend and MongoDb used for Storage of Assignments, and other miscellaneous user data such as permissions. Login and Authentication will be handled via UofT's Quercus LMS Software with Users automatically logged in and authenticated when redirected to Dogwood from Quercus. (Based on the LTI Functionality Described here: https://www.eduappcenter.com/docs/basics/index). We like this tech stack and approach as it will enable fast development and the usage of numerous UI libraries and frameworks to create a visually appealing application.
 
 Canvas API Documentation: https://canvas.instructure.com/doc/api/index.html
+Canvas Developers Forum: https://community.canvaslms.com/groups/canvas-developers
