@@ -34,7 +34,7 @@ In addition a common issue faced with the way clarifications are traditionally d
 
 ### User Experience
 
-All assignments and relevant documents will be listed in the Dogwood app for users to click on and view in more detail. Places with clarifications are highlighted in each document, which can be clicked on, and a clarification dialog will pop up where users can see and add comments. General comments and discussions can be left below the document. 
+All assignments and relevant documents will be listed in the Dogwood app for users to click on and view in more detail. Places with clarifications are highlighted in each document, which can be clicked on, and a clarification dialog will pop up where users can see and add comments. General comments and discussions can be left below the document (COMMENT: I think that comments appearing to the side in an exapandable form would make more sense, kind of like what some IDEs show).
 
 #### Technology Stack
 
