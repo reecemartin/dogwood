@@ -14,7 +14,7 @@ Our proposed solution is Dogwood, a progressive web app which allows instructors
 
 ### Inline Annotations - Comments and Questions
 
-1) Commenting: Students and Professors can comment on sections of the assignment with helpful thoughts and the like. Other students as well as course teams can vote or highlight comments which are of high quality with a system similar to Reddit. Users who receive upvotes for their comments receive some form of reward.
+1) Commenting: Students and Professors can comment on sections of the assignment with helpful thoughts and the like. Other students as well as course teams can vote or highlight comments which are of high quality with a system similar to Reddit. Users who receive upvotes for their comments receive some form of reward. Annotations/comments can then be approved by an instructor of the course, following any discussion required. 
 
 2) Questions: Students can ask questions about particular parts of the assignment directly on the assignment posting which enables quick lookup of related inquiries from other students. The point system described in 1) also works for questions.
 
@@ -26,7 +26,7 @@ In addition a common issue faced with the way clarifications are traditionally d
 
 ### Other Functionality
 
-- Import and Export of Assignments
+- Import and Export of Assignments (Automatically imported when an instructor enables Dogwood for their course)
 - Muting of Users
 - At least 3 Levels of Permissions
 - Inline Editing
@@ -34,7 +34,7 @@ In addition a common issue faced with the way clarifications are traditionally d
 
 ### User Experience
 
-FILL ME
+All assignments and relevant documents will be listed in the Dogwood app for users to click on and view in more detail. Places with clarifications are highlighted in each document, which can be clicked on, and a clarification dialog will pop up where users can see and add comments. General comments and discussions can be left below the document. 
 
 #### Technology Stack
 
