@@ -17,3 +17,5 @@ The whole OAuth2 workflow is not required if the application is only used by ver
 ## Authentication: Proper Workflow
 
 This is the proper workflow required for an application to be used by users. 
+
+**Note: Developer token from Admin is needed in order to proceed**
