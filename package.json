@@ -20,7 +20,8 @@
     "concurrently": "^5.0.2",
     "express": "^4.17.1",
     "mongodb": "^3.5.2",
-    "mongoose": "^5.8.9"
+    "mongoose": "^5.8.9",
+    "node-fetch": "^2.6.0"
   },
   "repository": {
     "type": "git",
