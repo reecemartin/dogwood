@@ -13,6 +13,8 @@ The project is developed with the MERN stack.
 
 ## Current Status
 
+## Future Plans
+
 ## How to start the development server
 
 1. Install NodeJS and NPM
