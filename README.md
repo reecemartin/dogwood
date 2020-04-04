@@ -3,6 +3,16 @@ A project for creating enhanced interactive assignments with Canvas. Named after
 
 The project is developed with the MERN stack. 
 
+## Project Motivation
+
+## Goal
+
+## Initial Planning
+
+## Feature Progression
+
+## Current Status
+
 ## How to start the development server
 
 1. Install NodeJS and NPM
