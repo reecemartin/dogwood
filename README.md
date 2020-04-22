@@ -72,6 +72,9 @@ We have a laundry list of features that we feel would be great to include in dog
 2. Clone this project
 3. In a terminal, navigate to the root folder of the project repository
 4. Run `npm install`
-5. Run `npm run dev`
+5. Navigate into the client folder
+6. Run `npm install`
+7. Navigate back to the root folder
+6. Run `npm run dev`
 
 Congrats! Now the development server is running, with the front end React app running on Port 3000, and the back end Express app running on Port 4000.
