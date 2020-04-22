@@ -81,61 +81,78 @@ app.get('/api/assignments', (req, res) => {
   })
 })
 
+// get info on a course
+app.get('/api/courses/:id', async (req, res) => {
+  const courseId = req.params.id;
+  log(`GET /api/courses/${courseId}`);
+  
+  // find course
+  try {
+    const course = await Course.findByCourseId(courseId);
+    //log(course);
+    if (!course) {
+      res.status(404).send("course not found");
+      return;
+    }
+
+    res.send(course);
+  } catch (error) {
+    log(error);
+    res.status(500).send(error);
+  }
+})
+
 // get all assignment ids for a course
-app.get('/api/courses/:id/assignments', (req, res) => {
+app.get('/api/courses/:id/assignments', async (req, res) => {
   const courseId = req.params.id;
   log("GET /api/courses/" + courseId + "/assignments");
   
   // find course
-  Course.findByCourseId(courseId, (error, course) => {
-    log(course);
-    if (error) {
-      res.status(500).send(error);
-      return;
-    }
+  try {
+    const course = await Course.findByCourseId(courseId);
+    // log(course);
     if (!course) {
-      res.status(404).send();
+      res.status(404).send("course not found");
       return;
     }
-
-    res.json(course.assignments);
-  })
+    res.send(course.assignments)
+  } catch (error) {
+    log(error);
+    res.status(500).send(error);
+  }
 })
 
-app.get('/api/courses/:id/assignments/:assignmentId', (req, res) => {
-  const courseId = req.params.id;
-  const assignmentId = req.params.assignmentId;
+app.get('/api/courses/:id/assignments/:assignmentId', async (req, res) => {
+  const courseId = Number(req.params.id);
+  const assignmentId = Number(req.params.assignmentId);
   log("GET /api/courses/" + courseId + "/assignments/" + assignmentId);
 
   // find course
-  Course.findByCourseId(courseId, (error, course) => {
-    log(course);
-    if (error) {
-      res.status(500).send(error);
-      return;
-    }
+  try {
+    const course = await Course.findByCourseId(courseId);
+
+    //log(course);
     if (!course) {
-      res.status(404).send();
+      res.status(404).send("course not found");
       return;
     }
 
     // ensure assignment is in course
     if (course.assignments.includes(assignmentId)) {
       // find assignment in system
-      Assignment.findByAssignmentId(assignmentId, (error, assignment) => {
-        log(assignment);
-        if (error) {
-          res.status(500).send(error);
-          return;
-        }
-        if (!assignment) {
-          res.status(404).send();
-          return;
-        }
-        res.json(assignment);
-      })
+      const assignment = await Assignment.findByAssignmentId(assignmentId);
+
+      //log(assignment);
+      if (!assignment) {
+        res.status(404).send();
+        return;
+      }
+      res.send(assignment);
     }
-  })
+  } catch (error) {
+    log(error);
+    res.status(500).send(error);
+  }
 })
 
 // get all questions for an assignment
@@ -144,17 +161,8 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
   log("GET /api/course/:courseId/assignment/:assignmentId/questions");
   const courseId = req.params.courseId;
   const assignmentId = req.params.assignmentId;
-  const userInfo = getUserInfoFromReq(req);
 
   try {
-    // find user
-    const user = await User.findByUserId(userInfo.userId);
-    if (!user) {
-      res.status(400).send("User not found");
-      return;
-    }
-    log("user found");
-
     // find course
     const course = await Course.findByCourseId(courseId);
     if (!course) {
@@ -162,13 +170,6 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
       return;
     }
     log("course found");
-
-    // make sure user is in course
-    if (!user.coursesStudying.includes(courseId) && !user.coursesTeaching.includes(courseId)) {
-      res.status(400).send("User not enrolled in course");
-      return;
-    }
-    log("user in course");
 
     // find assignment
     const assignment = await Assignment.findByAssignmentId(assignmentId);
@@ -180,7 +181,7 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
 
     const generalQuestions = [];
     const anchoredQuestions = [];
-    const questions = {generalQuestions, anchoredQuestions};
+    const questions = {generalQuestions: generalQuestions, anchoredQuestions: anchoredQuestions};
     
     // collect general questions
     for (let i in assignment.generalQuestions) {
@@ -191,7 +192,7 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
         return;
       }
       const question = questionObj.toObject();
-      log(question)
+      //log(question)
       if (question.answer) {
         // get answer
         const answerObj = await Answer.findById(questionObj.answer);
@@ -201,6 +202,18 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
         }
         question.answer = answerObj.toObject();
       }
+      // get username of asker
+      const user = await User.findByUserId(questionObj.author);
+
+      if (!user) {
+        res.status(400).send("User doesn't exist");
+        return;
+      }
+
+      //log(user);
+
+      question.author = user.toObject();
+
       generalQuestions.push(question);
     }
 
@@ -216,7 +229,7 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
           return;
         }
         const question = questionObj.toObject();
-        log(question)
+        //log(question)
         if (question.answer) {
           // get answer
           const answerObj = await Answer.findById(questionObj.answer);
@@ -226,6 +239,18 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
           }
           question.answer = answerObj.toObject();
         }
+        // get username of asker
+        const user = await User.findByUserId(questionObj.author);
+
+        if (!user) {
+          res.status(400).send("User doesn't exist");
+          return;
+        }
+
+        //log(user);
+
+        question.author = user.toObject();
+
         anchoredQuestions[anchor].push(question);
       }
     }
@@ -285,7 +310,7 @@ app.post('/api/users', async (req, res) => {
 // Add user to a course
 // POST '/api/course/courseId/users'
 // {userId, type}
-app.post('/api/course/courseId/user', async (req, res) => {
+app.post('/api/courses/courseId/user', async (req, res) => {
   const courseId = req.params.courseId;
   const userId = req.body.userId;
   const type = req.body.type;
@@ -297,14 +322,14 @@ app.post('/api/course/courseId/user', async (req, res) => {
 
   try {
     // make sure user is in system
-    const user = User.findByUserId(userId);
+    const user = await User.findByUserId(userId);
     if (!user) {
       res.status(400).send("User doesn't exist");
       return;
     }
 
     // find course
-    const course = Course.findByCourseId(courseId);
+    const course = await Course.findByCourseId(courseId);
     if (!course) {
       res.status(400).send("Course doesn't exist");
       return;
@@ -359,6 +384,8 @@ app.post("/api/courses/", async (req, res) => {
       return;
     }
 
+    const courseJson = await courseRes.json();
+
     log("course doesn't exist in database");
 
     // user should already exist in the system
@@ -386,7 +413,7 @@ app.post("/api/courses/", async (req, res) => {
       teachers: [user.userId],
       students: [],
       courseId: courseId,
-      name: courseRes.name
+      name: courseJson.name
     })
 
     const course = await courseInfo.save();
@@ -439,10 +466,11 @@ const addAssignment = async (course, assignmentInfo, userId) => {
   const body = assignmentInfo.description;
 
   // find anchors 
-  const anchors = findAnchorsInAssignment(body, "<h2>", "</h2>");
+  const processed = findAnchorsInAssignment(body, "<h2>", "</h2>");
+  const anchors = processed.anchors;
   const questions = [];
   for (let anchor in anchors) {
-    log(anchors[anchor]);
+    //log(anchors[anchor]);
     questions.push([]);
   }
 
@@ -457,7 +485,8 @@ const addAssignment = async (course, assignmentInfo, userId) => {
     generalQuestions: [],
     questionAnchors: anchors,
     questions: questions,
-    name: assignmentInfo.name
+    name: assignmentInfo.name,
+    body: processed.newBody
   });
 
   try {
@@ -511,7 +540,7 @@ app.post("/api/courses/:id/assignments", async (req, res) => {
   try {
     // check whether course is in database
     const course = await Course.findByCourseId(courseId);
-    log(course);
+    //log(course);
 
     if (course === null) {
       res.status(404).send("Course doesn't exist");
@@ -520,7 +549,7 @@ app.post("/api/courses/:id/assignments", async (req, res) => {
 
     // check whether assignment is in database
     const assignment = await Assignment.findByAssignmentId(assignmentId);
-    log(assignment);
+    //log(assignment);
     if (assignment) {
       res.status(400).send("Assignment already exists");
     }
@@ -540,36 +569,67 @@ app.post("/api/courses/:id/assignments", async (req, res) => {
 });
 
 // parsing: only parse <h3> tags into anchor locations. Generate anchor locations by going through and finding all the tags. 
+// returns: {newBody, anchors}
 const findAnchorsInAssignment = (body, openTag, closeTag) => {
   log("findAnchorsInAssignment()");
   // find anchors by tag and grab words in between
   const anchors = [];
-  if (!body || body == "") return anchors;
+  if (!body || body == "") return {newBody: body, anchors};
 
-  let idx = body.indexOf(openTag);
+  const openTagClean = openTag.substring(0, openTag.length - 1);
+  let idx = body.indexOf(openTagClean);
+  let prevCloseIdx = 0;
+  let newBody = "";
 
   while (idx != -1) {
-    const closeIdx = body.indexOf(closeTag, idx + openTag.length);
-    if (closeIdx == -1) break;
-    anchors.push(body.substring(idx + openTag.length, closeIdx));
-    idx = body.indexOf(openTag, idx + openTag.length);
+    // add first bit of string to newBody
+    if (prevCloseIdx === 0) {
+      newBody += body.substring(0, idx);
+    } else {
+      newBody += body.substring(prevCloseIdx, idx);
+    }
+
+    // find anchor string
+    const caret = body.indexOf(">", idx + 1);
+    const closeIdx = body.indexOf(closeTag, caret);
+    if (closeIdx == -1) {
+      prevCloseIdx = caret + 1;
+      break;
+    }
+    
+    // add anchor to newBody
+    const restOfTag = body.substring(idx + openTagClean.length, closeIdx + closeTag.length);
+    //log("Rest of tag: " + restOfTag);
+    newBody += openTagClean + " anchorId=" + anchors.length + " " + restOfTag;
+    anchors.push(body.substring(caret + 1, closeIdx));
+
+    // update indices
+    prevCloseIdx = closeIdx + closeTag.length;
+    idx = body.indexOf(openTagClean, idx + openTagClean.length);
   }
 
+  // add the rest of the body to newBody
+  if (newBody !== "")
+    newBody += body.substring(prevCloseIdx);
+  //log(newBody);
+
   // return them
-  return anchors;
+  return {newBody, anchors};
 };
 
 // add question: given anchor id (which is just the index into the anchor list) and a question body, add into the list of questions
 // POST "/api/course/courseId/assignment/assignmentId/questions"
 // body: {questionBody, user, anchorId}
 // if no anchorId, question will be added to general questions
-app.post("/api/course/:courseId/assignment/:assignmentId/questions", async (req, res) => {
+app.post("/api/courses/:courseId/assignments/:assignmentId/questions", async (req, res) => {
   log("POST /api/course/:courseId/assignment/:assignmentId/questions");
   const courseId = req.params.courseId;
   const assignmentId = req.params.assignmentId;
   const userInfo = getUserInfoFromReq(req);
   const anchorId = req.body.anchorId;
   const questionBody = req.body.questionBody;
+  const hide = req.body.hide;
+  const anonymous = req.body.anonymous;
   
   // make sure input is good
   if (!questionBody || questionBody === "") {
@@ -610,11 +670,12 @@ app.post("/api/course/:courseId/assignment/:assignmentId/questions", async (req,
     log("assignment found");
 
     // make sure anchor exists
-    if (anchorId !== null) {
+    if (anchorId) {
       if (anchorId < 0 || anchorId >= assignment.questionAnchors.length) {
         res.status(400).send("Anchor not found");
         return;
       }
+      //log (anchorId);
       log("anchor exists")
     }
 
@@ -624,15 +685,18 @@ app.post("/api/course/:courseId/assignment/:assignmentId/questions", async (req,
       author: userInfo.userId,
       upvotes: 0,
       downvotes: 0,
-      content: questionBody.trim()
+      content: questionBody.trim(),
+      hidden: hide,
+      anonymous: anonymous
     })
     
     const question = await questionInfo.save();
     log ("question saved")
-    log(question);
+    //log(question);
+    //log(anchorId);
 
     // add question to assignment
-    if (anchorId !== null) {
+    if ((anchorId || anchorId === 0) && anchorId !== -1) {
       assignment.questions[anchorId].push(question._id);
     } else {
       assignment.generalQuestions.push(question._id);
@@ -646,11 +710,98 @@ app.post("/api/course/:courseId/assignment/:assignmentId/questions", async (req,
     log(error);
     res.status(500).send(error);
   }
-})
+});
 
-// add answer: given anchor id, question id, and question body, add answer to the question
-// POST "/api/course/:courseId/assignment/:assignmentId/questions/:questionId/answer"
-app.post("/api/course/:courseId/assignment/:assignmentId/questions/:questionId/answer", async (req, res) => {
+app.delete("/api/courses/:courseId/assignments/:assignmentId/questions/:questionId", async (req, res) => {
+  const courseId = req.params.courseId;
+  const assignmentId = req.params.assignmentId;
+  const questionId = req.params.questionId;
+  const userInfo = getUserInfoFromReq(req);
+  log(`/api/courses/${courseId}/assignments/${assignmentId}/questions/${questionId}`);
+
+  try {
+    // find user
+    const user = await User.findByUserId(userInfo.userId);
+    if (!user) {
+      res.status(400).send("User not found");
+      return;
+    }
+    log("user found");
+
+    // find course
+    const course = await Course.findByCourseId(courseId);
+    if (!course) {
+      res.status(404).send("Course not found");
+      return;
+    }
+    log("course found");
+
+    // make sure user is a teacher in course
+    if (!user.coursesTeaching.includes(courseId)) {
+      res.status(400).send("User not a teacher in course");
+      return;
+    }
+    log("user in course");
+
+    // find assignment
+    const assignment = await Assignment.findByAssignmentId(assignmentId);
+    if (!assignment) {
+      res.status(404).send("Assignment not found");
+      return;
+    }
+    log("assignment found");
+
+    // find question
+    const question = await Question.findById(questionId);
+    if (!question) {
+      res.status(404).send("Question not found");
+      return;
+    }
+    log("question found");
+
+    // hide question if requested
+    //log(req.body);
+    if ("hide" in req.body && req.body.hide) {
+      question.hidden = true;
+      await question.save();
+      res.send(question);
+      return;
+    }
+
+    // if question has answer, first delete that
+    if ("answer" in question) {
+      // delete answer
+      await Answer.findByIdAndDelete(question.answer);
+    }
+    const q = await Question.findByIdAndDelete(question);
+
+    // delete reference to question in assignment
+    let qid = assignment.generalQuestions.indexOf(questionId);
+    if (qid !== -1) {
+      assignment.generalQuestions.splice(qid, 1);
+    } else {
+      // find in anchored questions
+      for (let i = 0; i < assignments.questions.length; i++) {
+        qid = assignment.questions[i].indexOf(questionId);
+
+        if (qid !== -1) {
+          assignment.questions[i].splice(qid, 1);
+          break;
+        }
+      }
+    }
+    await assignment.save();
+
+    res.send(q);
+  } catch (error) {
+    log(error);
+    res.status(500).send();
+  }
+});
+
+// add teacher answer: given question id, and question body, add answer to the question
+// POST "/api/course/:courseId/assignment/:assignmentId/questions/:questionId/teacherAnswer"
+app.post("/api/courses/:courseId/assignments/:assignmentId/questions/:questionId/teacherAnswer", async (req, res) => {
   log("POST /api/course/:courseId/assignment/:assignmentId/questions/:questionId/answer");
   const courseId = req.params.courseId;
   const assignmentId = req.params.assignmentId;
@@ -711,18 +862,24 @@ app.post("/api/course/:courseId/assignment/:assignmentId/questions/:questionId/a
       author: userInfo.userId
     });
     await answer.save();
-    log(answer);
+    //log(answer);
 
     // add answer to question
-    question.answer = answer._id;
+    if (userInfo.type === 0) {
+      // add to teacher answer
+      question.teacherAanswer = answer._id;
+    } else {
+      // add to student answer
+      question.studentAnswer = answer._id;
+    }
     await question.save();
-    log(question);
+    //log(question);
     res.send(answer);
   } catch (error) {
     log (error);
     res.status(500).send(error);
   }
-})
+});
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {

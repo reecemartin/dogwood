@@ -23,11 +23,22 @@ const QuestionSchema = new Schema({
     type: String,
     required: true
   }, 
-  answer: {
+  teacherAnswer: {
+    type: ObjectId
+  },
+  studentAnswer: {
     type: ObjectId
   },
   comments: {
     type: [ObjectId]
+  },
+  hidden: {
+    type: Boolean,
+    required: true
+  },
+  anonymous: {
+    type: Boolean,
+    required: true
   }
 });
 

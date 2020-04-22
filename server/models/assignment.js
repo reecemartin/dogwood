@@ -42,6 +42,9 @@ const AssignmentSchema = new Schema({
     type: String,
     required: true,
     minlength: 1
+  },
+  body: {
+    type: String
   }
 }); 
 
