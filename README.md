@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" height="300" src="https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/dogwood.png">
+  <img width="531" height="200" src="https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/dogwood.png">
 </p>
 # dogwood
 
