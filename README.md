@@ -1,7 +1,7 @@
 <p align="center">
   <img width="531" height="200" src="https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/dogwood.png">
+  <h1>dogwood</h1>
 </p>
-# dogwood
 
 A project for creating enhanced interactive assignments with Canvas. Named after the provincial flower of British Columbia.
 
