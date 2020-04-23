@@ -1,21 +1,21 @@
 # dogwood
 A project for creating enhanced interactive assignments with Canvas. Named after the provincial flower of British Columbia.
 
-The project is developed with the MERN stack. 
+The project is developed with the MERN (Mongo Express React Node) stack. 
 
 ## Project Motivation
 
-Many students and teachers have probably faced this exact scenario: An assignment's description is confusing, so students flock to the course's discussion boards to ask questions about it. However, a regular discussion board's structure is linear, and when they get long, questions that have already been asked about the confusing sections are easily missed, and more questions get asked about the same thing, causing confusion and extra work for instructor's to answer them. The problem: questions aren't clearly associated with specific parts of an assignment, and they aren't displayed in a logical order or way that allow for easy retrieval of information. 
+Many students and teachers have probably faced this exact scenario: An assignment's description is confusing, so students flock to the course's discussion boards to ask questions about it. However, a regular discussion board's structure is linear, and when they get long, questions that have already been asked about the confusing sections and replies are easily missed, and more questions get asked about the same thing, causing confusion and extra work for instructor's to answer them. The problem: questions aren't clearly associated with specific parts of an assignment, and they aren't displayed in a logical order or way that allow for easy retrieval of information. 
 
 ## Goal
 
-Dogwood aims to solve this problem that exist in traditional forum-style discussion boards by integrating a Q&A interface directly inside an assignment, giving students the ability to ask question about a specific part of an assignment, and display them in a way that is intuitive for other students to find the answer that they are looking for. Dogwood is designed to be a Canvas plug-in that can be embedded into a Canvas course in place of the built-in "Assignments" page, or it can be used as a standalone site after Canvas assignment information has been retrieved. 
+Dogwood aims to solve this problem that exist in traditional forum-style discussion boards by integrating a Q&A interface directly inside an assignment, giving students the ability to ask question about a specific part of an assignment, and display them in a way that is intuitive for other students to find the answer that they are looking for. Dogwood is designed to be a Canvas LMS (https://www.instructure.com/canvas/) plug-in that can be embedded into a Canvas course in place of the built-in "Assignments" page, or it can be used as a standalone site after Canvas assignment information has been retrieved. 
 
 ## Initial Planning
 
-### The design
+### The Design
 
-The design and look of dogwood is inspired by its predecessors: Piazza and Canvas's own discussion board. We wanted to incorporate what already works with these two products into what we thought they lacked: the context of the assignment description itself. As we envisioned this to be the entrypoint for a student into their assignment, we wanted the assignment description itself to take the center stage, and the discussion itself to take a supporting role, which is how we came to the initial design of having the description take up about 70% of the screen space, while questions and answers are shown in a sidebar on the right hand side. 
+The design and look of Dogwood is inspired by its predecessors: Piazza and Canvas's own discussion board. We wanted to incorporate what already works with these two products into what we thought they lacked: the context of the assignment description itself. As we envisioned this to be the entrypoint for a student into their assignment, we wanted the assignment description itself to take the center stage, and the discussion itself to take a supporting role, which is how we came to the initial design of having the description take up about 70% of the screen space, while questions and answers are shown in a sidebar on the right hand side. 
 
 ### Anchored Questions
 
@@ -23,7 +23,7 @@ A large part of our project revolves around the concept of an "anchored question
 
 ### Q & A
 
-We felt that Piazza's discussion board system is very well developed and had all the features that we loved, so we decided to implement similar features in dogwood, while improving on them even more. The features we thought were necessary to port to dogwood include: anonymous questions, private (instructor-only) questions, comments, student-contributed answers, and a powerful rich text editor for text on dogwood. Besides these features, some other features we plan to add to dogwood include
+We felt that Piazza's discussion board system (https://piazza.com/) is very well developed and had all the features that we loved, so we decided to implement similar features in Dogwood, while further improving on them. The features we thought were necessary to port to dogwood include: anonymous questions, private (instructor-only) questions, comments, student-contributed answers, and a powerful rich text editor for text on dogwood. Besides these features, some other features we plan to add to dogwood include
 
 * A voting system to help instructors answer the most important questions first
 * and Reddit-esque threads for comments in a question.
