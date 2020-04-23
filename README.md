@@ -49,7 +49,7 @@ Our frontend is built with components that represent each of the pages, as well 
 
 This project was an exciting opportunity for us to interact with a mature and powerful API, and although we still haven't utilized it to its full extent, we've already had a lot of fun with it. 
 
-The initial setup of the course is done by fetching all the assignments from a single course, and then processing them to embed anchors. 
+The initial setup of the course is done by fetching all the assignments from a single course, and then processing them to embed anchors. Each object in the database (courses, assignments, users) all correspond to a real Canvas/Quercus object, as they are all created from the Canvas API.
 
 ## Feature Progression
 
