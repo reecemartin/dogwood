@@ -1,4 +1,6 @@
+![Dogwood](https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/dogwood.png)
 # dogwood
+
 A project for creating enhanced interactive assignments with Canvas. Named after the provincial flower of British Columbia.
 
 The project is developed with the MERN (Mongo Express React Node) stack. 
