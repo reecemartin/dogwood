@@ -15,7 +15,7 @@ Dogwood aims to solve this problem that exist in traditional forum-style discuss
 
 ### Proposal
 
-A full write up of our initial proposal can be found [here](https://github.com/reecemartin/dogwood/blob/master/Planning/Proposal/Proposal.md). This document outlined the motivation found above, and what we planned to build at the beginning. 
+A full write up of our initial proposal can be found [here](https://github.com/reecemartin/dogwood/blob/master/docs/planning/Proposal/Proposal.md). This document outlined the motivation found above, and what we planned to build at the beginning. 
 
 ### The Design
 
@@ -41,7 +41,7 @@ We decided to use the MERN stack for our project: this is the stack that we are 
 
 In terms of the backend, we used MongoDB and ExpressJS, along with the mongoose package to help us create an object-oriented approach to the business model. Here is a UML representation of our backend Mongoose schema, but do note that it has been changed slightly since its conception: 
 
-![backend UML](https://github.com/reecemartin/dogwood/blob/master/Planning/Backend/uml.png?raw=true)
+![backend UML](https://github.com/reecemartin/dogwood/blob/master/docs/planning/Backend/uml.png?raw=true)
 
 Our frontend is built with components that represent each of the pages, as well as smaller, reusable components such as cards to represent questions. material-ui really helps us out here with prebuilt React components that offer a lot of variation in styling, but combining them into the layout was no small feat still! 
 
