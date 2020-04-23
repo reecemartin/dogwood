@@ -47,6 +47,10 @@ Our frontend is built with components that represent each of the pages, as well 
 
 ### Interface with the Canvas API
 
+This project was an exciting opportunity for us to interact with a mature and powerful API, and although we still haven't utilized it to its full extent, we've already had a lot of fun with it. 
+
+The initial setup of the course is done by fetching all the assignments from a single course, and then processing them to embed anchors. 
+
 ## Feature Progression
 
 ### First Prototype (End of February 2020)
@@ -85,6 +89,7 @@ We have a laundry list of features that we feel would be great to include in Dog
 
 * User testing. This is one aspect that we unfortunately did not have time to explore during our initial prototyping and design phase due to time/space constraints and the global COVID-19 crisis, but we definitely want to get to this as soon as possible. Although we are part of the target audience, we still need to reach out to more people, and get their opinion on the usefulness of dogwood versus competing products such as Piazza, and what they think is the most important feature that dogwood needs to have. Importantly, we will need to reach out to both instructors and students, as they are both important in this conversation. 
 * Unify the two assignment views. As a measure to save time and headache, the two were implemented as components that are completely separated, and there is a lot of repeated code, with a loading screen causing discontinuity when switching between the two. The goal is to have the assignment component implemented such that we can resize the question and switch to the expanded view seamlessly. 
+* Deploy the application. As this is a prototype with not much real functionality yet, we haven't gotten around to deploying the application, but this will be done in the near future as soon as we feel it is more ready. 
 * Implement a rich-text editor. Currently, the Q&A interface is severely limited by the fact that only plaintext can be typed into the TextField components. We really appreciate the rich text and LaTeX editor in Piazza, which has helped us immensely when working with courses in the math and sciences, and this is a feature that we feel is a must have for dogwood. 
 * Implement a voting system. This is something that we feel will be very useful in prioritizing questions for instructors to answer, and we planned to have this feature in our proposal. 
 * Implement comments. We like how comments currently work in Piazza, but we want to expand on it by creating Reddit-esque threads that will be much better for follow up discussion regarding the question or the answer. 
@@ -93,6 +98,7 @@ We have a laundry list of features that we feel would be great to include in Dog
 
 ### Far Future
 
+* Deal with Editing & Changes. This was a major concern of ours when we were thinking about flexible anchors, as we'd need to think about what to do when the assignment has been updated to remove the anchors, or if the assignment has been shifted around too much that the application won't be able to anchor questions in the correct place. We haven't thought of a complete plan to get around this yet, but we will do some more thinking!
 * Implement OAuth. This is a really big aspect of the project that will take it beyond a prototype/MVP and elevate it into a product that can actually be used by a school. Currently, there is only one user account connected to the project using a manually-generated API token, which means that it doesn't support multiple users just yet, and won't work out of the box for any other user. In order to do so, we need to retrieve the developer token from the Quercus administrators, and in it's current state, we just don't think Dogwood is ready for that yet. We plan to develop the project further and prove that it is a valuable project before we connect it to Quercus. 
 
 ## How to start the Development Server
