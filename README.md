@@ -64,12 +64,16 @@ The first prototype we developed was focused on the concept of anchors: We wante
 * Displaying an assignment with questions in a sidebar
 * Displaying anchored questions when an anchor is clicked
 
+![Assignment Default View](https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/assignment-default-view.png?raw=true)
+
 ### Second Prototype (Middle of March 2020)
 
 Our second milestone built upon what we implemented for the first phase, and we implemented a few more features that we deemed essential to Dogwood, with the primary focus being on more Q&A functionality and better presentation of information. The features we implemented include:
 
 * A course page that lists out all the assignments categorized by due dates
+![Course View Page](https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/course-view.png?raw=true)
 * A new question preview box that shows up when an anchor is hovered over, showing the number of questions in total, number of unanswered questions, and the top unanswered/overall question for the anchor
+![Anchor Preview Box](https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/hover-preview.png?raw=true)
 * Ability to ask a private/instructor-only question that is hidden from other students, the question will show as red in the question list
 * Ability to edit an answer after it's saved
 
@@ -78,8 +82,11 @@ Our second milestone built upon what we implemented for the first phase, and we 
 We are currently working to improve the Q&A interface further, and to expand on the functionality of anchors. 
 
 * We've finished implementing student answers both in our frontend and in our backend: this was much less tedious as we though for the frontend, as we were able to keep all the code interacting with the backend, and the backend can deal with the type of answer being updated by looking at the user type. 
+![Student Answer Button](https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/student-answer-button.png?raw=true)
+![Student Answer TextBox](https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/student-answer-textbox.png?raw=true)
 * Anonymous questions have also been implemented: this involved creating a flag in the question schema; when the question is being displayed on the screen, if the author is not the same as the current author, then the application will display "Anonymous" instead.
 * A new look for assignments: we've almost finished implementing our expanded question view! Unlike the default view that focuses on the assignment content itself and has a minimal Q&A interface section at the side, this view focuses on the questions at each anchor by relegating the "context" -- the anchors to the sidebar, and displays the questions in the rest of the space instead. The new interface is still aesthetically similar to the old interface, although a bit more intricate and designed better in terms of code. 
+![Assignment Expanded View](https://github.com/reecemartin/dogwood/blob/master/docs/screenshots/assignment-expanded-view.png?raw=true)
 
 ## Future Plans
 
