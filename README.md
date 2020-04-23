@@ -36,18 +36,18 @@ We felt that Piazza's discussion board system (https://piazza.com/) is very well
 
 ### First Prototype (End of February 2020)
 
-The first prototype we developed was focused on the concept of anchors: We wanted to ensure that the most important part of dogwood -- being able to anchor questions to a specific anchor and browse questions only pertaining to a certain anchor -- is implemented first, so we can see whether our idea would actually be worthwhile to implement at all. For this milestone, we implemented:
+The first prototype we developed was focused on the concept of anchors: We wanted to ensure that the most important part of Dogwood -- being able to anchor questions to a specific anchor and browse questions only pertaining to a certain anchor -- was implemented first, so we could see whether our idea would actually be worthwhile to implement at all. For this milestone, we implemented:
 
-* Importing of assignments from Canvas/Quercus (U of T's Canvas instance)
+* Importing of assignments from Canvas/Quercus (U of T's Canvas LMS instance)
 * Processing of assignments to extract anchor points
 * Adding questions to an anchor
 * Addding an instructor answer to a question
 * Displaying an assignment with questions in a sidebar
 * Displaying anchored questions when an anchor is clicked
 
-### Second Prototype (Mid-March 2020)
+### Second Prototype (Middle of March 2020)
 
-Our second milestone built upon what we implemented for the first phase, and we implemented a few more features that we deemed essential for dogwood, with the primary focus being on more Q&A functionalities and better presentation of information. The features we implemented include:
+Our second milestone built upon what we implemented for the first phase, and we implemented a few more features that we deemed essential to Dogwood, with the primary focus being on more Q&A functionality and better presentation of information. The features we implemented include:
 
 * A course page that lists out all the assignments categorized by due dates
 * A new question preview box that shows up when an anchor is hovered over, showing the number of questions in total, number of unanswered questions, and the top unanswered/overall question for the anchor
@@ -58,20 +58,20 @@ Our second milestone built upon what we implemented for the first phase, and we 
 
 We are currently working to improve the Q&A interface further, and to expand on the functionality of anchors. 
 
-* Currently, the Q&A interface exists solely in a small sidebar. We feel that there isn't enough room to realize the extensive Q&A functionalities that we plan to implement into dogwood, and that it isn't the best way to present this information, so we are currently designing an alternate layout for dogwood's assignments: A fully-flexible sidebar that can expand to take up up to 70% of the space on the page, while still having the assignment on the left hand side to give users context, which, to us, is the most important part of dogwood. 
+* Currently, the Q&A interface exists solely in a small sidebar. We feel that there isn't enough room to realize the extensive Q&A functionalities that we plan to implement into Dogwood should the project continue, and that it isn't the best way to present this information, so we are currently designing an alternate layout for Dogwood's assignments: A fully-flexible sidebar that can expand to take up up to 70% of the space on the page, while still having the assignment on the left hand side to give users helpful context, which, to us, is the most important part of Dogwood. 
 * We have yet to implement all the Q&A functionalities that we planned to include in dogwood yet, so we are working to implement those as well. The Q&A features we are currently working on include:
   - Student answers
   - Anonymous questions
 
 ## Future Plans
 
-We have a laundry list of features that we feel would be great to include in dogwood, and we will hopefully be able to get to them in the future. These are ranked by priority/importance, but not necessarily in the order we will implement them, depending on the circumstances.
+We have a laundry list of features that we feel would be great to include in Dogwood, and we will hopefully be able to get to them in the future. These are ranked by priority/importance, but not necessarily in the order we will implement them, depending on the circumstances.
 
-* Implement OAuth. This is a really big aspect of the project that will take it beyond a prototype/MVP and elevate it into a product that can actually be used by a school. Currently, there is only one user account connected to the project using a manually-generated API token, which means that it doesn't support multiple users just yet, and won't work out of the box for any other user. In order to do so, we need to retrieve the developer token from the Quercus administrators, and in it's current state, we just don't think dogwood is ready for that yet. We plan to develop the project further and prove that it is a valuable project before we connect it to Quercus. 
+* Implement OAuth. This is a really big aspect of the project that will take it beyond a prototype/MVP and elevate it into a product that can actually be used by a school. Currently, there is only one user account connected to the project using a manually-generated API token, which means that it doesn't support multiple users just yet, and won't work out of the box for any other user. In order to do so, we need to retrieve the developer token from the Quercus administrators, and in it's current state, we just don't think Dogwood is ready for that yet. We plan to develop the project further and prove that it is a valuable project before we connect it to Quercus. 
 
-## How to start the development server
+## How to start the Development Server
 
-1. Install NodeJS and NPM
+1. Install NodeJS and NPM (typically packaged together)
 2. Clone this project
 3. In a terminal, navigate to the root folder of the project repository
 4. Run `npm install`
