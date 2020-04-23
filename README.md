@@ -13,7 +13,7 @@ Dogwood aims to solve this problem that exist in traditional forum-style discuss
 
 ## Initial Planning
 
-## Proposal
+### Proposal
 
 A full write up of our initial proposal can be found [here](https://github.com/reecemartin/dogwood/blob/master/Planning/Proposal/Proposal.md). This document outlined the motivation found above, and what we planned to build at the beginning. 
 
