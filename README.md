@@ -23,10 +23,13 @@ A large part of our project revolves around the concept of an "anchored question
 
 ### Q & A
 
-We felt that Piazza's discussion board system (https://piazza.com/) is very well developed and had all the features that we loved, so we decided to implement similar features in Dogwood, while further improving on them. The features we thought were necessary to port to dogwood include: anonymous questions, private (instructor-only) questions, comments, student-contributed answers, and a powerful rich text editor for text on dogwood. Besides these features, some other features we plan to add to dogwood include
+We felt that Piazza's discussion board system (https://piazza.com/) is very well developed and had all the features that we loved, so we decided to implement similar features in Dogwood, while further improving on them. The features we thought were necessary to port to Dogwood include: anonymous questions, private (instructor-only) questions, comments, student-contributed answers, and a powerful rich text editor for text entry into Dogwood. Besides these features, some other features we think would be helpful to add to Dogwood in the future include
 
-* A voting system to help instructors answer the most important questions first
-* and Reddit-esque threads for comments in a question.
+* A voting system to help instructors answer the most important questions first somewhat liek how Reddit operates
+* Reddit-esque threads for comments in a question.
+* More robust anchoring systems
+* Mobile Device Support and Optimization
+* Integration with more LMS Software
 
 
 ## Feature Progression
