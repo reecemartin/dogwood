@@ -193,14 +193,23 @@ app.get('/api/courses/:courseId/assignments/:assignmentId/questions', async (req
       }
       const question = questionObj.toObject();
       //log(question)
-      if (question.answer) {
-        // get answer
-        const answerObj = await Answer.findById(questionObj.answer);
+      if (question.teacherAnswer) {
+        // get teacher answer
+        const answerObj = await Answer.findById(questionObj.teacherAnswer);
         if (answerObj === null) {
           res.status(500).send("cannot find answer");
           return;
         }
-        question.answer = answerObj.toObject();
+        question.teacherAnswer = answerObj.toObject();
+      }
+      if (question.studentAnswer) {
+        // get answer
+        const answerObj = await Answer.findById(questionObj.studentAnswer);
+        if (answerObj === null) {
+          res.status(500).send("cannot find answer");
+          return;
+        }
+        question.studentAnswer = answerObj.toObject();
       }
       // get username of asker
       const user = await User.findByUserId(questionObj.author);
@@ -628,7 +637,7 @@ app.post("/api/courses/:courseId/assignments/:assignmentId/questions", async (re
   const userInfo = getUserInfoFromReq(req);
   const anchorId = req.body.anchorId;
   const questionBody = req.body.questionBody;
-  const hide = req.body.hide;
+  const hidden = req.body.hidden;
   const anonymous = req.body.anonymous;
   
   // make sure input is good
@@ -686,7 +695,7 @@ app.post("/api/courses/:courseId/assignments/:assignmentId/questions", async (re
       upvotes: 0,
       downvotes: 0,
       content: questionBody.trim(),
-      hidden: hide,
+      hidden: hidden,
       anonymous: anonymous
     })
     
@@ -737,8 +746,8 @@ app.delete("/api/courses/:courseId/assignments/:assignmentId/questions/:question
     log("course found");
 
     // make sure user is a teacher in course
-    if (!user.coursesTeaching.includes(courseId)) {
-      res.status(400).send("User not a teacher in course");
+    if (!user.coursesTeaching.includes(courseId) && !user.coursesStudying.includes(courseId)) {
+      res.status(400).send("User not in course");
       return;
     }
     log("user in course");
@@ -799,9 +808,9 @@ app.delete("/api/courses/:courseId/assignments/:assignmentId/questions/:question
   }
 });
 
-// add teacher answer: given question id, and question body, add answer to the question
-// POST "/api/course/:courseId/assignment/:assignmentId/questions/:questionId/teacherAnswer"
-app.post("/api/courses/:courseId/assignments/:assignmentId/questions/:questionId/teacherAnswer", async (req, res) => {
+// add answer: given question id, and question body, add answer to the question
+// POST "/api/course/:courseId/assignment/:assignmentId/questions/:questionId/answer"
+app.post("/api/courses/:courseId/assignments/:assignmentId/questions/:questionId/answer", async (req, res) => {
   log("POST /api/course/:courseId/assignment/:assignmentId/questions/:questionId/answer");
   const courseId = req.params.courseId;
   const assignmentId = req.params.assignmentId;
@@ -867,7 +876,7 @@ app.post("/api/courses/:courseId/assignments/:assignmentId/questions/:questionId
     // add answer to question
     if (userInfo.type === 0) {
       // add to teacher answer
-      question.teacherAanswer = answer._id;
+      question.teacherAnswer = answer._id;
     } else {
       // add to student answer
       question.studentAnswer = answer._id;

@@ -9,7 +9,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import withStyles from "@material-ui/core/styles/withStyles";
 import './App.css';
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -32,7 +32,8 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(2),
     fontFamily: "Cairo, sans-serif",
     color: "white",
-    textDecoration: "none"
+    textDecoration: "none",
+    display: "inline-block"
   }, 
   root: {
     backgroundColor: "#DAE0E6",
@@ -40,7 +41,11 @@ const styles = (theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    width: "100vw"
   },
+  toolbar: {
+    flexGrow: 1
+  }
 })
 
 class App extends Component {
@@ -50,7 +55,8 @@ class App extends Component {
     this.assignments = {};
     this.state = {
       course: {},
-      assignments: {}
+      assignments: {},
+      expanded: true
     }
 
     // TODO: change this to work with other courses
@@ -61,6 +67,8 @@ class App extends Component {
     }).catch(error => {
       console.log(error);
     });
+
+    this.toggleExpand = this.toggleExpand.bind(this)
   }
 
   componentDidMount() {
@@ -75,6 +83,10 @@ class App extends Component {
     }).catch(error => {
       console.log(error);
     });
+  }
+
+  toggleExpand(e) {
+    this.setState({expanded: !this.state.expanded})
   }
 
   async getCourseInfo(courseId) {
@@ -184,13 +196,13 @@ class App extends Component {
     }
   }
 
-  async submitQuestion(courseId, assignmentId, questionBody, anchorId, hide, anonymous) {
+  async submitQuestion(courseId, assignmentId, questionBody, anchorId, hidden, anonymous) {
     try {
       // body: {questionBody, user, anchorId}
       const reqBody = {
         questionBody: questionBody,
         user: user,
-        hide: hide,
+        hidden: hidden,
         anonymous: anonymous
       }
       if (anchorId !== -1) {
@@ -257,7 +269,7 @@ class App extends Component {
   }
 
   // will replace whatever existing answer there is
-  async submitTeacherAnswer(courseId, assignmentId, questionId, answerBody) {
+  async submitAnswer(courseId, assignmentId, questionId, answerBody) {
     try {
       // body: {answerBody, user}
       const reqBody = {
@@ -265,10 +277,10 @@ class App extends Component {
         user: user
       }
 
-      console.log("App submitTeacherAnswer")
+      console.log("App submitAnswer")
       console.log(reqBody);
 
-      const url = `/api/courses/${courseId}/assignments/${assignmentId}/questions/${questionId}/teacherAnswer`;
+      const url = `/api/courses/${courseId}/assignments/${assignmentId}/questions/${questionId}/answer`;
       console.log(url)
 
       const newAnswer = await fetch(url, 
@@ -294,10 +306,6 @@ class App extends Component {
     }
   }
 
-  async submitStudentAnswer(courseId, assignmentId, questionId, answerBody) {
-
-  }
-
   render() {
     const {classes} = this.props;
     return (
@@ -305,17 +313,16 @@ class App extends Component {
         <div className={classes.root} style={{minHeight: "100%", height: "auto"}}>
         <CssBaseline />
         <AppBar position="static" className={classes.appBar}>
-          <Toolbar>
-            
-              <Typography align="left" variant="h6">
+          <Toolbar className={classes.toolbar}>
+            <Typography edge="start" align="left" variant="h6">
               <Link to="/"  className={classes.title}>
                 dogwood
                 </Link>
               </Typography>
            
-            {/* <IconButton color="inherit">
-              <NotificationsIcon/>
-            </IconButton> */}
+            <IconButton color="inherit" onClick={this.toggleExpand}>
+              <SwapHorizIcon/>
+            </IconButton>
           </Toolbar>
         </AppBar>
 
@@ -327,23 +334,28 @@ class App extends Component {
              <Route 
               path="/courses/:courseId/assignments/:assignmentId"
               render={
-                (props) => (
-                  // <AssignmentView 
-                  //   assignments={this.state.assignments} 
-                  //   user={user} 
-                  //   getQuestions={this.getAssignmentQuestions.bind(this)} 
-                  //   {...props} 
-                  //   submitQuestion={this.submitQuestion.bind(this)} 
-                  //   submitTeacherAnswer={this.submitTeacherAnswer.bind(this)}
-                  //   deleteQuestion={this.deleteQuestion.bind(this)}
-                  // />
-                  <ExpandedAssignmentView
-                    {...props}
-                    assignments={this.state.assignments}
-                    user={user}
-                    getQuestions={this.getAssignmentQuestions.bind(this)}
-                  />
-                )
+                (props) => {
+                  return !this.state.expanded ? (
+                    <AssignmentView 
+                      assignments={this.state.assignments} 
+                      user={user} 
+                      getQuestions={this.getAssignmentQuestions.bind(this)} 
+                      {...props} 
+                      submitQuestion={this.submitQuestion.bind(this)} 
+                      submitAnswer={this.submitAnswer.bind(this)}
+                      deleteQuestion={this.deleteQuestion.bind(this)}
+                    />
+                  ): (
+                    <ExpandedAssignmentView
+                      {...props}
+                      assignments={this.state.assignments}
+                      user={user}
+                      getQuestions={this.getAssignmentQuestions.bind(this)}
+                      submitQuestion={this.submitQuestion.bind(this)}
+                      submitAnswer={this.submitAnswer.bind(this)}
+                    />
+                  )
+                }
               }
             /> 
             <Route

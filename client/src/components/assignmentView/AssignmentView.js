@@ -88,19 +88,20 @@ const AssignmentBody = (props) => {
   )
 }
 
-const drawerWidth = 320;
+const drawerWidth = 300;
 
 const styles = (theme) => ({
   assignment: {
     width: `calc(100% - ${drawerWidth}px)`,
     padding: "10px",
-    fontFamily: "Roboto, sans-serif"
+    fontFamily: "Roboto, sans-serif",
+    overflowX: "hidden"
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
     zIndex: theme.zIndex.drawer,
-    overflowY: "hidden"
+    overflow: "hidden"
   },
   drawerPaper: {
     width: drawerWidth,
@@ -118,7 +119,7 @@ const styles = (theme) => ({
     height: "8vh"
   },
   questions: {
-    height: "62vh",
+    height: "56vh",
     overflowX: "hidden",
     overflowY: "auto",
     padding: theme.spacing(1)
@@ -143,7 +144,7 @@ const styles = (theme) => ({
     marginTop: "5px"
   },
   backCard: {
-    height: "45px", 
+    height: "42px", 
     width: "100%",
     border: "1px gray solid",
     backgroundColor: "white",
@@ -169,7 +170,7 @@ class AssignmentView extends React.Component {
 
     this.handleNewQuestionChange = this.handleNewQuestionChange.bind(this);
     this.handleNewQuestionSubmit = this.handleNewQuestionSubmit.bind(this);
-    this.submitTeacherAnswer = this.submitTeacherAnswer.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
   handleHideNewQuestionChange(e) {
@@ -240,13 +241,13 @@ class AssignmentView extends React.Component {
     });
   }
 
-  async submitTeacherAnswer(questionId, answerBody) {
-    console.log("AssignmentView submitTeacherQuestion");
+  async submitAnswer(questionId, answerBody) {
+    console.log("AssignmentView submitQuestion");
     const courseId = this.props.match.params.courseId;
     const assignmentId = this.props.match.params.assignmentId;
 
     try {
-      const success = await this.props.submitTeacherAnswer(courseId, assignmentId, questionId, answerBody);
+      const success = await this.props.submitAnswer(courseId, assignmentId, questionId, answerBody);
 
       if (success) {
         console.log("success");
@@ -316,7 +317,7 @@ class AssignmentView extends React.Component {
                   key={id} 
                   question={question} 
                   user={this.props.user} 
-                  submitTeacherAnswer={answer => this.submitTeacherAnswer(question._id, answer)}
+                  submitAnswer={answer => this.submitAnswer(question._id, answer)}
                   deleteQuestion={hide => this.deleteQuestion(question._id, hide)}
                 />
               ))
@@ -407,7 +408,7 @@ class AssignmentView extends React.Component {
                         size="small"
                       />
                     }
-                    label="Instructor-Only"
+                    label={<Typography variant="subtitle1">Instructor-Only</Typography>}
                   />
                   <FormControlLabel
                     style={{

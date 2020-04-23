@@ -125,19 +125,14 @@ class QuestionCard extends React.Component {
     const answer = this.state.answer;
     console.log("save clicked! answer: " + answer);
     
-    if (this.props.user.type === 0) {
-      this.props.submitTeacherAnswer(answer).then((result) => {
-        if (result) {
-          console.log("question card: success");
-          this.setState({expanded: false})
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
-    } else {
-      // TODO: Implement student answer
-    }
-    
+    this.props.submitAnswer(answer).then((result) => {
+      if (result) {
+        console.log("question card: success");
+        this.setState({expanded: false})
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   handleMouseEnter (question) {
@@ -192,7 +187,6 @@ class QuestionCard extends React.Component {
             {this.props.question.content}
           </Typography>
 
-          {/* TODO: implement student answer */}
           {
             (this.props.question.teacherAnswer) ? (
               <div>
@@ -266,7 +260,7 @@ class QuestionCard extends React.Component {
 
               {/* show answer and edit button if answer exists */}
               {
-                (!this.props.question.answer) ? (
+                (!this.props.question.teacherAnswer) ? (
                   <></>
                 ) : (
                   <div className={classes.answerBox} onMouseEnter={() => this.handleMouseEnter(false)} onMouseLeave={() => this.handleMouseLeave(false)}>
@@ -292,18 +286,25 @@ class QuestionCard extends React.Component {
               <Collapse in={this.state.expanded} unmountOnExit>
                 <CardContent>
                   <TextField
-                      id="answerTextField"
-                      label="Add an Answer..."
-                      multiline
-                      rows="2"
-                      variant="outlined"
-                      className={classes.answerTextBox}
-                      value={this.state.answer} 
-                      onChange={this.handleAnswerChanged}
-                    />
-                    <Button disabled={!this.state.submitButtonEnabled} color="primary" className={classes.submitButton} fullWidth variant="contained" size="small" onClick={this.handleAnswerSubmit}>
-                      Save
-                    </Button>
+                    id="answerTextField"
+                    label="Add an Answer..."
+                    multiline
+                    rows="2"
+                    variant="outlined"
+                    className={classes.answerTextBox}
+                    value={this.state.answer} 
+                    onChange={this.handleAnswerChanged}
+                  />
+                  <Button 
+                    disabled={!this.state.submitButtonEnabled} 
+                    color="primary" 
+                    className={classes.submitButton} 
+                    fullWidth 
+                    variant="contained" 
+                    size="small" 
+                    onClick={this.handleAnswerSubmit}>
+                    Save
+                  </Button>
                 </CardContent>
               </Collapse>
             </Card>
