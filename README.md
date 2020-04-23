@@ -13,6 +13,10 @@ Dogwood aims to solve this problem that exist in traditional forum-style discuss
 
 ## Initial Planning
 
+## Proposal
+
+A full write up of our initial proposal can be found [here](https://github.com/reecemartin/dogwood/blob/master/Planning/Proposal/Proposal.md). This document outlined the motivation found above, and what we planned to build at the beginning. 
+
 ### The Design
 
 The design and look of Dogwood is inspired by its predecessors: Piazza and Canvas's own discussion board. We wanted to incorporate what already works with these two products into what we thought they lacked: the context of the assignment description itself. As we envisioned this to be the entrypoint for a student into their assignment, we wanted the assignment description itself to take the center stage, and the discussion itself to take a supporting role, which is how we came to the initial design of having the description take up about 70% of the screen space, while questions and answers are shown in a sidebar on the right hand side. 
@@ -31,6 +35,17 @@ We felt that Piazza's discussion board system (https://piazza.com/) is very well
 * Mobile Device Support and Optimization
 * Integration with more LMS Software
 
+### Architecture
+
+We decided to use the MERN stack for our project: this is the stack that we are most comfortable with, and we liked the powerful features that React, combined with the material-ui package, gave us in terms of building out our layout. 
+
+In terms of the backend, we used MongoDB and ExpressJS, along with the mongoose package to help us create an object-oriented approach to the business model. Here is a UML representation of our backend Mongoose schema, but do note that it has been changed slightly since its conception: 
+
+![backend UML](https://github.com/reecemartin/dogwood/blob/master/Planning/Backend/uml.png?raw=true)
+
+Our frontend is built with components that represent each of the pages, as well as smaller, reusable components such as cards to represent questions. material-ui really helps us out here with prebuilt React components that offer a lot of variation in styling, but combining them into the layout was no small feat still! 
+
+### Interface with the Canvas API
 
 ## Feature Progression
 
@@ -54,18 +69,29 @@ Our second milestone built upon what we implemented for the first phase, and we 
 * Ability to ask a private/instructor-only question that is hidden from other students, the question will show as red in the question list
 * Ability to edit an answer after it's saved
 
-## Current Status
+## Current Status (April 2020)
 
 We are currently working to improve the Q&A interface further, and to expand on the functionality of anchors. 
 
-* Currently, the Q&A interface exists solely in a small sidebar. We feel that there isn't enough room to realize the extensive Q&A functionalities that we plan to implement into Dogwood should the project continue, and that it isn't the best way to present this information, so we are currently designing an alternate layout for Dogwood's assignments: A fully-flexible sidebar that can expand to take up up to 70% of the space on the page, while still having the assignment on the left hand side to give users helpful context, which, to us, is the most important part of Dogwood. 
-* We have yet to implement all the Q&A functionalities that we planned to include in dogwood yet, so we are working to implement those as well. The Q&A features we are currently working on include:
-  - Student answers
-  - Anonymous questions
+* We've finished implementing student answers both in our frontend and in our backend: this was much less tedious as we though for the frontend, as we were able to keep all the code interacting with the backend, and the backend can deal with the type of answer being updated by looking at the user type. 
+* Anonymous questions have also been implemented: this involved creating a flag in the question schema; when the question is being displayed on the screen, if the author is not the same as the current author, then the application will display "Anonymous" instead.
+* A new look for assignments: we've almost finished implementing our expanded question view! Unlike the default view that focuses on the assignment content itself and has a minimal Q&A interface section at the side, this view focuses on the questions at each anchor by relegating the "context" -- the anchors to the sidebar, and displays the questions in the rest of the space instead. The new interface is still aesthetically similar to the old interface, although a bit more intricate and designed better in terms of code. 
 
 ## Future Plans
 
 We have a laundry list of features that we feel would be great to include in Dogwood, and we will hopefully be able to get to them in the future. These are ranked by priority/importance, but not necessarily in the order we will implement them, depending on the circumstances.
+
+### Near Future
+
+* User testing. This is one aspect that we unfortunately did not have time to explore during our initial prototyping and design phase due to time/space constraints and the global COVID-19 crisis, but we definitely want to get to this as soon as possible. Although we are part of the target audience, we still need to reach out to more people, and get their opinion on the usefulness of dogwood versus competing products such as Piazza, and what they think is the most important feature that dogwood needs to have. Importantly, we will need to reach out to both instructors and students, as they are both important in this conversation. 
+* Unify the two assignment views. As a measure to save time and headache, the two were implemented as components that are completely separated, and there is a lot of repeated code, with a loading screen causing discontinuity when switching between the two. The goal is to have the assignment component implemented such that we can resize the question and switch to the expanded view seamlessly. 
+* Implement a rich-text editor. Currently, the Q&A interface is severely limited by the fact that only plaintext can be typed into the TextField components. We really appreciate the rich text and LaTeX editor in Piazza, which has helped us immensely when working with courses in the math and sciences, and this is a feature that we feel is a must have for dogwood. 
+* Implement a voting system. This is something that we feel will be very useful in prioritizing questions for instructors to answer, and we planned to have this feature in our proposal. 
+* Implement comments. We like how comments currently work in Piazza, but we want to expand on it by creating Reddit-esque threads that will be much better for follow up discussion regarding the question or the answer. 
+* Custom Anchors. Currently, dogwood is limited by the fact that only fixed anchors can be used to anchor questions, and these can only be set by the instructor at import time. We want dogwood to be flexible enough to account for questions that can relate to a freely-selected anchor, while still rigid enough to have structure and not create too much of a mess. This is a technical hurdle that, when crossed, will bring dogwood to the next level, and we're entertaining different ideas on how this could work, including Google Docs-style comments that anchor to highlighted text, or heatmap-style comments that have a single coordinate that will fit it best. 
+* Search. The search functionality is one aspect that is really appreciated in Piazza. Although not able to provide the anchoring functionality like dogwood, Piazza's search functionality is helpful in getting through the clutter, and be able to find the answer to a question quickly. 
+
+### Far Future
 
 * Implement OAuth. This is a really big aspect of the project that will take it beyond a prototype/MVP and elevate it into a product that can actually be used by a school. Currently, there is only one user account connected to the project using a manually-generated API token, which means that it doesn't support multiple users just yet, and won't work out of the box for any other user. In order to do so, we need to retrieve the developer token from the Quercus administrators, and in it's current state, we just don't think Dogwood is ready for that yet. We plan to develop the project further and prove that it is a valuable project before we connect it to Quercus. 
 
