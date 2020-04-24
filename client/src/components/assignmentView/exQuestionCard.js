@@ -245,7 +245,7 @@ class ExQuestionCard extends React.Component {
             }
             <Grid container item xs={12}>
               <Collapse in={this.state.expanded} unmountOnExit style={{width: "100%"}}>
-                <Grid item xs={12} style={{justifyContent: "center", textAlign: 'center'}}>
+                <Grid item xs={12} style={{padding: "10px"}}>
                   <Divider variant="fullwidth"/>
 
                   {/* Student answer box */}
@@ -261,7 +261,7 @@ class ExQuestionCard extends React.Component {
                       </div>
                     ):this.props.user.type !== 0 ? 
                       (this.state.sExpanded ? (
-                        <div style={{padding: "5px"}}>
+                        <div style={{padding: "5px", textAlign: "center"}}>
                           <TextField
                             id="answerTextField"
                             label="Add an Answer..."
@@ -285,8 +285,8 @@ class ExQuestionCard extends React.Component {
                         </div>
                       ) :
                     (
-                      
-                      <Button 
+                      <div style={{width: "100%", textAlign: "center"}}>
+                        <Button 
                         variant="contained" 
                         color="primary" 
                         className={classes.addAnswerButton}
@@ -294,6 +294,7 @@ class ExQuestionCard extends React.Component {
                         >
                         + Add Student Answer
                       </Button>
+                      </div>
                     )):(
                       <Typography variant="body2" className={classes.content} style={{margin:"10px 0 0 0 "}}>
                         No student answer yet.
@@ -301,7 +302,7 @@ class ExQuestionCard extends React.Component {
                     )
                   }
                 </Grid>
-                <Grid item xs="12" style={{justifyContent: "center", textAlign: 'center'}}>
+                <Grid item xs="12" style={{padding: "10px"}}>
                   <Divider variant="fullwidth"/>
                   {/* Instructor answer box */}
                   {
@@ -311,7 +312,7 @@ class ExQuestionCard extends React.Component {
                           Instructor Answer: 
                         </Typography>
                         <Typography variant="body2" className={classes.content}>
-                          this.props.question.TeacherAnswer.content
+                         { this.props.question.teacherAnswer.content}
                         </Typography>
                       </div>
                     ):this.props.user.type === 0 ?

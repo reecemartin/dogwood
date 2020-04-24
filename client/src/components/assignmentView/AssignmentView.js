@@ -369,7 +369,7 @@ class AssignmentView extends React.Component {
                   {
                     this.state.questions.generalQuestions.map((question, id) => (
                       <QuestionCard 
-                        submitTeacherAnswer={answer => this.submitTeacherAnswer(question._id, answer)} 
+                        submitAnswer={answer => this.submitAnswer(question._id, answer)} 
                         key={id} 
                         question={question} 
                         user={this.props.user}/>

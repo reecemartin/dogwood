@@ -12,16 +12,6 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
-const sampleQuestion = {
-  author: {
-    name: "John Smith"
-  }, 
-  content: "When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?When is Homework 5 due?",
-  teacherAnswer: {
-    content: "The new due date for homework 5 is April 28."
-  }
-}
-
 const styles = theme => ({
   root: {
     maxHeight: "89vh"
