@@ -29,7 +29,7 @@ app.get('/', (req, res) => res.send('Hello World!'));
 
 // Temporary Authorization Bearer Token
 var myHeaders = new fetch.Headers();
-myHeaders.append("Authorization", "Bearer 11834~ufus9vbwIpCdMELsM5wPYJZHGnCwg4Ma9vXU4zIOK4NooS62IYbrtsp6PflnFSMg");
+myHeaders.append("Authorization", "Bearer 11834~JzaSLxVoP5PqHzaW39OugNAfWOHJmZ91a884db7YlVRTA52HZF3UDqMQnBL4jaLj");
 
 // Get user information from a request
 // Helper function so it's easier to test without using OAuth
