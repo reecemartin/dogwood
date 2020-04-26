@@ -7,6 +7,8 @@ A project for creating enhanced interactive assignments with Canvas. Named after
 
 The project is developed with the MERN (Mongo Express React Node) stack. 
 
+This project was built for a CSC494 Project at the University of Toronto supervised by Professor Paul Gries http://www.cs.toronto.edu/~pgries/.  
+
 ## Project Motivation
 
 Many students and teachers have probably faced this exact scenario: An assignment's description is confusing, so students flock to the course's discussion boards to ask questions about it. However, a regular discussion board's structure is linear, and when they get long, questions that have already been asked about the confusing sections and replies are easily missed, and more questions get asked about the same thing, causing confusion and extra work for instructor's to answer them. The problem: questions aren't clearly associated with specific parts of an assignment, and they aren't displayed in a logical order or way that allow for easy retrieval of information. 
