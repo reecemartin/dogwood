@@ -21,7 +21,7 @@
     "express": "^4.17.1",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.9",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "repository": {
     "type": "git",
